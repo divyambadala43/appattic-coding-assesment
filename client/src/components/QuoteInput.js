@@ -2,17 +2,17 @@ import React, { useState, useCallback } from "react";
 import { TextField } from "@shopify/polaris";
 
 const QuoteInput = () => {
-  const [textFieldValue, setTextFieldValue] = useState("");
+  const [quote, setQuote] = useState("");
 
-  const handleTextFieldChange = useCallback(
-    (value) => setTextFieldValue(value),
+  const handleQuoteChange = useCallback(
+    (value) => setQuote(value),
     []
   );
   return (
     <TextField
       placeholder="Quote"
-      value={textFieldValue}
-      onChange={handleTextFieldChange}
+      value={quote}
+      onChange={handleQuoteChange}
       maxLength={100}
       autoComplete="off"
       showCharacterCount
