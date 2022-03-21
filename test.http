@@ -1,0 +1,12 @@
+POST http://localhost:5000/post HTTP/1.1
+Content-Type: application/json
+
+{
+  "quote": "By you, I am forever undone",
+  "color": {
+      "hue": 300,
+      "brigthness": 1,
+      "saturation": 0.7,
+      "aplha": 0.7
+  }
+}
