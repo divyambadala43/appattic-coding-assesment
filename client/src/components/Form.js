@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { TextField, ColorPicker, Button } from "@shopify/polaris";
 import axios from "axios";
 import "./Form.css";
+import QuoteImage from "./QuoteImage";
 
 const Form = () => {
   const [quote, setQuote] = useState("");
@@ -15,7 +16,6 @@ const Form = () => {
     alpha: 0.7,
   });
 
-  // const hsl = `hsla(${color.hue}, ${color.saturation}, ${color.brightness}, ${color.alpha})`;
 
   const hslToHex = () => {
     let hsl = `hsla(${color.hue}, ${
@@ -95,7 +95,7 @@ const Form = () => {
           <Button onClick={handleSubmit}>Submit</Button>
         </div>
       </form>
-      <img src={receivedData} />
+      {receivedData && <QuoteImage src={receivedData} />}
     </>
   );
 };
