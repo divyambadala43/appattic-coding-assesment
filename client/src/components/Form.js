@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { TextField, ColorPicker, Button } from "@shopify/polaris";
 import axios from "axios";
-import "./Form.css";
 import QuoteImage from "./QuoteImage";
+import Footer from "./Footer";
+import "./Form.css";
 
 const Form = () => {
   const [quote, setQuote] = useState("");
@@ -16,11 +17,13 @@ const Form = () => {
     alpha: 0.7,
   });
 
-
   const hslToHex = () => {
-    let hsl = `hsla(${color.hue}, ${
+    let hsl = `hsla(${Math.trunc(color.hue)}, ${
       Math.trunc(color.saturation * 100) + "%"
-    }, ${Math.trunc(color.brightness * 100) + "%"}, ${color.alpha})`;
+    }, ${Math.trunc(color.brightness * 100) + "%"}, ${parseFloat(
+      color.alpha
+    ).toFixed(1)})`;
+    console.log(hsl);
     hsl = hsl.match(
       /^hsla?\(\s?(\d+)(?:deg)?,?\s(\d+)%,?\s(\d+)%,?\s?(?:\/\s?\d+%|\s+[\d+]?\.?\d+)?\)$/i
     );
@@ -60,6 +63,7 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setQuote("")
 
     const colorPicked = hslToHex();
     axios
@@ -96,6 +100,7 @@ const Form = () => {
         </div>
       </form>
       {receivedData && <QuoteImage src={receivedData} />}
+      <Footer />
     </>
   );
 };

@@ -1,30 +1,22 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const cors = require("cors");
+const textToImage = require("text-to-image");
 const port = process.env.PORT || 5000;
 
-const textToImage = require("text-to-image");
-
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const app = express();
-
 app.use(cors());
 app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.send("Hellodddd");
-});
 
 app.get("/post", (req, res) => {
   res.send(req.body);
 });
 
-app.post("/post", urlencodedParser, async (req, res) => {
-  console.log(req.body);
+app.post("/post", async (req, res) => {
   const { colorPicked, quote } = req.body;
-  console.log(colorPicked);
   const dataUri = await textToImage.generate(quote, {
     debug: true,
+    textAlign: "center",
+    verticalAlign: "center",
     maxWidth: 1000,
     customHeight: 500,
     fontSize: 18,
@@ -32,7 +24,7 @@ app.post("/post", urlencodedParser, async (req, res) => {
     lineHeight: 30,
     margin: 5,
     bgColor: "black",
-    textColor: req.body.colorPicked,
+    textColor: colorPicked,
   });
   res.send(dataUri);
 });
